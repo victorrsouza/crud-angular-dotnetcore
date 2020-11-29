@@ -1,0 +1,67 @@
+<div class="product-component">
+
+  <notification-bar></notification-bar>
+
+  <header>
+      <div class="header-wrapper">
+        <div class="logo">
+          <img src="assets/img/logo.svg" alt="iFood - Logo">
+        </div>
+
+        <div class="search-bar-wrapper">
+          <div class="search-bar">
+            <mat-icon>search</mat-icon>
+            <input 
+              #search
+              type="text"
+              placeholder="Pesquisar"
+              (keyup)="onSearch($event)"
+              [value]="searchText$ | async">
+          </div>
+        </div>
+
+        <button mat-button aria-label="Sair da aplicação" (click)="onLogoff()">
+          <mat-icon>exit_to_app</mat-icon> Sair
+        </button>
+        <button class="create-button" mat-fab color="primary" aria-label="Criar um novo produto" (click)="onOpenForm(null)">
+          <mat-icon>add</mat-icon>
+        </button>        
+      </div>
+  </header>
+
+  <div class="product-wrapper">
+
+    <div class="card-wrapper">      
+        <mat-card *ngFor="let product of products$ | async" (click)="onOpenForm(product)">
+          <div class="image-content">
+            <div class="no-image" *ngIf="!product.image">sem imagem</div>
+            <img [src]="product.image" *ngIf="product.image">
+          </div>
+          <div class="info-content">
+            <div class="product-name">{{ product.name }}</div>
+            <div class="product-price">{{ product.value | currency:'BRL' }}</div>
+          </div>
+        </mat-card>              
+      </div>
+
+    <div class="button-wrapper">
+      <button mat-flat-button color="primary" *ngIf="hasMore$ | async" (click)="onPaginate()">
+        Ver mais produtos
+      </button>
+    </div>
+
+    <div class="no-product" *ngIf="(products$ | async)?.length === 0">
+
+      <mat-icon>find_in_page</mat-icon>
+
+      <h1>Ops! Nenhum produto cadastrado ainda</h1>
+
+      <h3>Para começar, clique no botão "Cadastrar Produto" ou no "+", no canto superior direito da tela</h3>
+
+      <button mat-flat-button color="primary" (click)="onOpenForm(null)">Cadastrar Produto</button>
+
+    </div>
+
+  </div>  
+  
+</div>

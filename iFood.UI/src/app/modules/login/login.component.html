@@ -1,0 +1,52 @@
+<div class="login-component">
+
+  <div class="left">
+
+    <div class="brand-images">
+      <div class="logo">
+        <img src="assets/img/logo.svg" alt="iFood - Logo" style="height: 45px;">
+      </div>
+      <div class="people-buying">
+        <img src="assets/img/people-buying.svg" alt="iFood - People Buying">
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="right">
+    
+    <div class="logo">
+      <img src="assets/img/logo.svg" alt="iFood - Logo" style="height: 45px;">
+    </div>
+
+    <mat-card>
+
+      <div class="login-wrapper">
+
+        <h1>Falta pouco para entrar no iFood!</h1>
+
+        <h2>Informe o usuário e senha para entrar</h2>
+
+        <h5>{{ $invalidMessage | async }}</h5>
+
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+          <mat-form-field appearance="outline">
+            <input matInput type="text" placeholder="Usuário" formControlName="user">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <input matInput type="password" placeholder="Senha" formControlName="password">
+          </mat-form-field>
+
+          <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid || ($loading | async)">Entrar</button>
+
+        </form>
+
+      </div>
+
+    </mat-card>    
+
+  </div>
+
+</div>
