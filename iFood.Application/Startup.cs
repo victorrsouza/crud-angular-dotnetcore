@@ -41,8 +41,10 @@ namespace iFood
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductCommandHandler, ProductCommandHandler>();
 
+            var connectionString = Configuration.GetValue<string>("ConnectionString");
+
             services.AddDbContext<DataContext>(
-                options => options.UseSqlServer("Data Source =.; Initial Catalog = iFood; Integrated Security = True;"));
+                options => options.UseSqlServer(connectionString));
 
             services.AddSwaggerGen();
         }
